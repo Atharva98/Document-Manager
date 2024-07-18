@@ -22,7 +22,7 @@ const ShowItems = ({ title, items = [], type }) => {
     
 
     // Add a console log to inspect the items
-    console.log(`${title} items:`, items);
+    //console.log(`${title} items:`, items);
 
     return (
         <div className='w-100'>

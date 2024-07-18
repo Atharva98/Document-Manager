@@ -3,7 +3,7 @@ import './SubBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileUpload, faFolderPlus, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
-import { query, collection, getDocs, where } from 'firebase/firestore';
+import { query, collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../config/firebase';
 import { setSearchResults } from '../../../redux/actionCreators/fileFolderActionCreator';
 import { getAuth, signOut } from 'firebase/auth';
@@ -30,25 +30,36 @@ const SubBar = ({ setIsCreateFolderModalOpen, setIsFileUploadModalOpen }) => {
 
   const handleSearch = async () => {
     if (!searchTerm) return;
-
-    // Query Firestore for folders and files matching the search term
-    const folderQuery = query(collection(db, "folders"), where("name", "==", searchTerm));
-    const fileQuery = query(collection(db, "files"), where("name", "==", searchTerm));
-
-    const folderSnapshots = await getDocs(folderQuery);
-    const fileSnapshots = await getDocs(fileQuery);
-
-    const folders = folderSnapshots.docs.map(doc => ({ docId: doc.id, data: doc.data() }));
-    const files = fileSnapshots.docs.map(doc => ({ docId: doc.id, data: doc.data() }));
-
-    // Combine folders and files into a single array
-    const results = [...folders, ...files];
-
-    // Dispatch search results to Redux store
-    dispatch(setSearchResults(results));
-
-    setSearchTerm('');
+  
+    console.log('Searching for:', searchTerm);
+  
+    try {
+      const folderQuery = query(collection(db, "folders"));
+      const fileQuery = query(collection(db, "files"));
+  
+      const [folderSnapshots, fileSnapshots] = await Promise.all([
+        getDocs(folderQuery),
+        getDocs(fileQuery)
+      ]);
+  
+      const folders = folderSnapshots.docs.map(doc => ({ docId: doc.id, data: doc.data() }));
+      const files = fileSnapshots.docs.map(doc => ({ docId: doc.id, data: doc.data() }));
+  
+      // Client-side filtering for partial match
+      const filteredFolders = folders.filter(folder => folder.data.name && folder.data.name.toLowerCase().includes(searchTerm.toLowerCase()));
+      const filteredFiles = files.filter(file => file.data.name && file.data.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  
+      const results = [...filteredFolders, ...filteredFiles];
+      console.log('Search results:', results);
+  
+      dispatch(setSearchResults(results));
+      setSearchTerm('');
+    } catch (error) {
+      console.error('Error searching:', error);
+    }
   };
+  
+  
 
   return (
     <nav className="subbar navbar navbar-expand-lg navbar-light bg-white px-4 mg-2 mb-10">
