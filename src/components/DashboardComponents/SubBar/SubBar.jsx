@@ -50,6 +50,9 @@ const SubBar = ({ setIsCreateFolderModalOpen, setIsFileUploadModalOpen }) => {
       const filteredFiles = files.filter(file => file.data.name && file.data.name.toLowerCase().includes(searchTerm.toLowerCase()));
   
       const results = [...filteredFolders, ...filteredFiles];
+
+      
+
       console.log('Search results:', results);
   
       dispatch(setSearchResults(results));
@@ -76,6 +79,11 @@ const SubBar = ({ setIsCreateFolderModalOpen, setIsFileUploadModalOpen }) => {
             Create Folder
           </button>
         </li>
+        <li className='nav-item mx-2'>
+        <button className='btn btn-outline-dark'>
+          <FontAwesomeIcon icon={faTrash} /> Delete
+        </button>
+        </li>
       </ul>
       
       <form className="d-flex ms-auto">
@@ -92,12 +100,6 @@ const SubBar = ({ setIsCreateFolderModalOpen, setIsFileUploadModalOpen }) => {
         </button>
       </form>
       
-      <div className="d-flex align-items-center">
-        <button className='btn btn-outline-dark btn-sm'>
-          <FontAwesomeIcon icon={faTrash} /> Delete
-        </button>
-        
-      </div>
 
       <button className='btn' type='button' onClick={handleLogOut}> Logout</button>
     </nav>

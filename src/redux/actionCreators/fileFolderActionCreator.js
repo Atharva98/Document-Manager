@@ -159,25 +159,3 @@ export const getFileDetails = (fileId) => async (dispatch) => {
   };
 
 
-  export const DELETE_FILE_SUCCESS = 'DELETE_FILE_SUCCESS';
-  export const DELETE_FILE_ERROR = 'DELETE_FILE_ERROR';
-  
-  // Action creator to delete file by name
-  export const deleteFileByName = (fileName, fileDocId) => {
-      return async (dispatch, getState) => {
-          try {
-              // Delete file from Firestore
-              await db.collection('files').doc(fileDocId).delete();
-  
-              // Delete file from Firebase Storage
-              const storageRef = storage.ref();
-              const fileRef = storageRef.child(fileName);
-              await fileRef.delete();
-  
-              dispatch({ type: DELETE_FILE_SUCCESS, fileDocId });
-          } catch (error) {
-              dispatch({ type: DELETE_FILE_ERROR, error });
-              throw new Error('Failed to delete file: ' + error.message);
-          }
-      };
-  };

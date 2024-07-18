@@ -1,6 +1,7 @@
 import React, { useEffect }  from 'react';
 import './App.css';
 
+
 import { Route, Routes } from 'react-router-dom';
 import { Login, Homepage, Register, Dashboard } from './pages';
 import { useDispatch } from 'react-redux';
@@ -18,6 +19,7 @@ function App() {
   },[dispatch]);
 
   return (
+    
     <div className='App'>
     <Routes>
       <Route path='*' element = {<Homepage />}></Route>

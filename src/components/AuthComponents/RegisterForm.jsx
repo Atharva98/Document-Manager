@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { fire } from '../../config/firebase'; // Adjust the path according to your project structure
+import { fire } from '../../config/firebase'; 
 
 const RegisterForm = () => {
   const [firstName, setFirstName] = useState('');
@@ -22,7 +22,8 @@ const RegisterForm = () => {
       const auth = getAuth(fire); // Initialize auth using the app instance
       // Create a new user with email and password
       await createUserWithEmailAndPassword(auth, email, password);
-      console.log('User created successfully:', { firstName, lastName, email });
+      //console.log('User created successfully:', { firstName, lastName, email });
+
       // Reset form fields
       setFirstName('');
       setLastName('');
@@ -30,6 +31,8 @@ const RegisterForm = () => {
       setPassword('');
       setConfirmPassword('');
       setError('');
+
+      window.location.href = '/login';
     } catch (error) {
       console.error('Error creating user:', error);
       setError(error.message);
