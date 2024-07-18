@@ -1,0 +1,12 @@
+export const CREATE_FOLDER = 'CREATE_FOLDER';
+export const ADD_FOLDERS = "ADD_FOLDERS";
+export const SET_LOADING = "SET_LOADING";
+export const CHANGE_FOLDER = 'CHANGE_FOLDER';
+export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';
+
+//file
+export const ADD_FILE = 'ADD_FILE';
+export const ADD_FILES = 'ADD_FILES';
+
+export const DELETE_FILE_SUCCESS = 'DELETE_FILE_SUCCESS';
+export const DELETE_FILE_ERROR = 'DELETE_FILE_ERROR';
