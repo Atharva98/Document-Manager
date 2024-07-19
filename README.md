@@ -1,7 +1,7 @@
 # Document-Manager
 Document Manager
 
-Hello, I have used ReactJs for the frontend and Firebase as the backend for this document management system. This system enables the user to create folders, upload files and search files. The user can also view the uploaded files in the new window. 
+Hello, I have used ReactJs for the frontend and Firebase as the backend for this document management system. This system enables the user to create folders, upload files and search files. The user can also view the uploaded files in the new window or if the file is too large, you can download it directly too! 
 
 <h2> Installation guide </h2>
 
