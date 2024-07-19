@@ -15,14 +15,9 @@ const ShowItems = ({ title, items = [], type }) => {
             dispatch(changeFolder(item.docId));
             navigate(`/dashboard/folder/${item.docId}`);
         } else {
-            window.open(item.url)
+            window.open(item.data.url)
         }
     };
-
-    
-
-    // Add a console log to inspect the items
-    //console.log(`${title} items:`, items);
 
     return (
         <div className='w-100'>
