@@ -20,13 +20,15 @@ const UploadFile = ({ setIsFileUploadModalOpen, folderId }) => {
     }
   };
 
+  
+
   return (
     <div className="modal">
       <div className="modal-content">
         <span className="close" onClick={() => setIsFileUploadModalOpen(false)}>&times;</span>
         <h2>Upload File</h2>
         <input type="file" onChange={handleFileChange} />
-        <button onClick={handleUpload}>Upload</button>
+        <button className='btn btn-primary mt-3' onClick={handleUpload}>Upload</button>
       </div>
     </div>
   );

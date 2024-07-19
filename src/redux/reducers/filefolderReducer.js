@@ -46,16 +46,7 @@ const filefolderReducer = (state = initialState, action) => {
                 ...state,
                 userFiles: action.payload,
             };
-        case 'DELETE_FILE_SUCCESS':
-            return {
-                ...state,
-                userFiles: state.userFiles.filter(file => file.docId !== action.payload),
-            };
-        case 'DELETE_FILE_FAILURE':
-            return {
-                ...state,
-                error: action.error,
-            };
+        
         default:
             return state;
     }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../../components/DashboardComponents/Navbar/Navbar';
@@ -16,7 +16,6 @@ const Dashboard = () => {
   const [showSubbar, setShowSubbar] = useState(true);
   const [currentFolderId, setCurrentFolderId] = useState('root'); // Default to root
   const { pathname } = useLocation();
-
 
   const { isLoggedIn, userId } = useSelector(state => ({
     isLoggedIn: state.auth.isAuthenticated,
@@ -47,10 +46,15 @@ const Dashboard = () => {
     }
   }, [pathname]);
 
-  const handleFolderChange = (folderId) => {
+  const handleFolderChange = useCallback((folderId) => {
     setCurrentFolderId(folderId);
-  };
+  }, []);
 
+  // Memoizing the props to prevent unnecessary re-renders
+  const memoizedProps = useMemo(() => ({
+    onFolderChange: handleFolderChange,
+    folderId: currentFolderId,
+  }), [handleFolderChange, currentFolderId]);
 
   return (
     <>
@@ -65,7 +69,7 @@ const Dashboard = () => {
       )}
       <Routes>
         <Route path="/" element={<HomeComponent />} />
-        <Route path="/folder/:folderId" element={<FolderComponent onFolderChange={handleFolderChange} />} />
+        <Route path="/folder/:folderId" element={<FolderComponent {...memoizedProps} />} />
         <Route path="/file/:fileId" element={<FileComponent />} />
       </Routes>
     </>
