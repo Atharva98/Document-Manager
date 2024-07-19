@@ -9,5 +9,5 @@ Hello, I have used ReactJs for the frontend and Firebase as the backend for this
 2. Open a terminal under this repo.
 3. Run 'npm -i' command to install the node modules
 4. Run 'ng serve'
-5. Enter the command 'npm start'.
+5. Enter the command 'npm start' and hit enter.
 6. The application will run on localhost:3000 on your machine!
